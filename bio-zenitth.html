@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Fernanda Rocha · JZ Zenitth Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E2C97E;
+    --gold-glow: rgba(201,168,76,0.18);
+    --navy: #0A1628;
+    --navy2: #0F1F35;
+    --cream: #F5F0E8;
+    --cream2: #EDE5D4;
+    --white: #FFFFFF;
+    --muted: rgba(245,240,232,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    min-height: 100%;
+    background: var(--navy);
+    font-family: 'Syne', sans-serif;
+    color: var(--cream);
+    overflow-x: hidden;
+  }
+
+  /* BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,168,76,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      linear-gradient(160deg, #0A1628 0%, #0D1E36 50%, #091422 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* GRAIN */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 48px 24px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* AVATAR */
+  .avatar-wrap {
+    position: relative;
+    margin-bottom: 22px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .avatar-ring {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--gold), rgba(201,168,76,0.2), var(--gold-light));
+    position: relative;
+  }
+  .avatar-ring::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.2);
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+  .avatar-img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--navy2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    overflow: hidden;
+  }
+  .avatar-inner {
+    width: 100%; height: 84px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1a2e45, #0f1f35);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+  }
+
+  /* NAME */
+  .name-block {
+    text-align: center;
+    margin-bottom: 8px;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+  .name em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .name-sub {
+    font-size: 10px;
+    letter-spacing: 3.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 6px;
+    font-weight: 600;
+  }
+
+  /* BADGES */
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: 14px 0 28px;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 20px;
+    border: 1px solid rgba(201,168,76,0.25);
+    color: rgba(245,240,232,0.7);
+    background: rgba(201,168,76,0.06);
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-bottom: 28px;
+    animation: fadeUp 0.7s 0.25s ease both;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 14px;
+    opacity: 0.8;
+    width: 100%;
+  }
+
+  /* LINKS */
+  .links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .link-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.6s ease both;
+  }
+  .link-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background: rgba(201,168,76,0.06);
+    border-radius: 14px;
+  }
+  .link-btn:hover { transform: translateY(-2px); }
+  .link-btn:hover::before { opacity: 1; }
+  .link-btn:active { transform: scale(0.98); }
+
+  /* Primary CTA */
+  .link-btn.primary {
+    background: linear-gradient(135deg, var(--gold) 0%, #b8922e 100%);
+    box-shadow: 0 4px 24px rgba(201,168,76,0.25), 0 0 0 1px rgba(201,168,76,0.3);
+  }
+  .link-btn.primary .btn-text strong { color: var(--navy); }
+  .link-btn.primary .btn-text span { color: rgba(10,22,40,0.75); }
+  .link-btn.primary .btn-icon { background: rgba(10,22,40,0.15); }
+  .link-btn.primary:hover { box-shadow: 0 8px 32px rgba(201,168,76,0.4); }
+
+  /* Secondary */
+  .link-btn.secondary {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+
+  /* App */
+  .link-btn.app {
+    background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(201,168,76,0.04));
+    border: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .btn-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(201,168,76,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .link-btn.primary .btn-icon {
+    background: rgba(10,22,40,0.15);
+  }
+
+  .btn-text {
+    flex: 1;
+  }
+  .btn-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 2px;
+    letter-spacing: 0.2px;
+  }
+  .btn-text span {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .btn-arrow {
+    font-size: 14px;
+    color: rgba(201,168,76,0.5);
+    flex-shrink: 0;
+  }
+  .link-btn.primary .btn-arrow { color: rgba(10,22,40,0.4); }
+
+  /* SOCIAL ROW */
+  .social-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s 0.5s ease both;
+  }
+  .social-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 8px;
+    border-radius: 12px;
+    text-decoration: none;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .social-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(201,168,76,0.3);
+  }
+  .social-icon { font-size: 20px; }
+  .social-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* QUOTE */
+  .quote-block {
+    text-align: center;
+    padding: 20px 16px;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    border-bottom: 1px solid rgba(201,168,76,0.12);
+    margin-bottom: 28px;
+    width: 100%;
+    animation: fadeUp 0.6s 0.6s ease both;
+  }
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(245,240,232,0.75);
+    line-height: 1.7;
+  }
+  .quote-text em { color: var(--gold-light); font-style: normal; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    animation: fadeUp 0.6s 0.7s ease both;
+  }
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: rgba(245,240,232,0.3);
+    letter-spacing: 1px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.08); opacity: 0.15; }
+  }
+
+  /* Staggered link animation delays */
+  .links .link-btn:nth-child(1) { animation-delay: 0.3s; }
+  .links .link-btn:nth-child(2) { animation-delay: 0.38s; }
+  .links .link-btn:nth-child(3) { animation-delay: 0.46s; }
+  .links .link-btn:nth-child(4) { animation-delay: 0.54s; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- AVATAR -->
+  <div class="avatar-wrap">
+    <div class="avatar-ring">
+      <div class="avatar-inner">👩🏻</div>
+    </div>
+  </div>
+
+  <!-- NAME -->
+  <div class="name-block">
+    <div class="name">Fernanda <em>Rocha</em></div>
+    <div class="name-sub">JZ Zenitth Solutions</div>
+  </div>
+
+  <!-- BADGES -->
+  <div class="badges">
+    <span class="badge">Gestora de MEI</span>
+    <span class="badge">BPO Financeiro</span>
+    <span class="badge">Mãe · Home Office</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- LINKS PRINCIPAIS -->
+  <div class="section-label">por onde começar</div>
+  <div class="links">
+
+    <a href="https://wa.me/55SEUNUMERO?text=Oi%20Fernanda!%20Quero%20fazer%20o%20diagn%C3%B3stico%20gratuito%20do%20meu%20MEI%20%F0%9F%99%8C" target="_blank" class="link-btn primary">
+      <div class="btn-icon">🩺</div>
+      <div class="btn-text">
+        <strong>Diagnóstico Gratuito do MEI</strong>
+        <span>Descubra se seu MEI está em dia</span>
+      </div>
+      <div class="btn-arrow">→</div>
+    </a>
+
+    <a href="https://wa.me/55SEUNUMERO?text=Oi%20Fernanda!%20Quero%20saber%20sobre%20o%20BPO%20MEI" target="_blank" class="link-btn app">
+      <div class="btn-icon">📋</div>
+      <div class="btn-text">
+        <strong>Contratar BPO MEI</strong>
+        <span>Gestão completa do seu MEI — você foca no negócio</span>
+      </div>
+      <div class="btn-arrow">→</div>
+    </a>
+
+    <a href="https://kiwify.com.br/SEULINK" target="_blank" class="link-btn secondary">
+      <div class="btn-icon">📱</div>
+      <div class="btn-text">
+        <strong>MEI Financeiro — App</strong>
+        <span>Controle financeiro feito para MEI</span>
+      </div>
+      <div class="btn-arrow">→</div>
+    </a>
+
+    <a href="https://wa.me/55SEUNUMERO?text=Oi!%20Quero%20saber%20como%20meu%20MEI%20pode%20crescer" target="_blank" class="link-btn secondary">
+      <div class="btn-icon">📈</div>
+      <div class="btn-text">
+        <strong>MEI que Cresce</strong>
+        <span>Estratégia para ir além da gestão</span>
+      </div>
+      <div class="btn-arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- SOCIAL -->
+  <div class="section-label">me encontra por aqui</div>
+  <div class="social-row">
+    <a href="https://instagram.com/jzzenitthsolutions" target="_blank" class="social-btn">
+      <span class="social-icon">📸</span>
+      <span class="social-label">Instagram</span>
+    </a>
+    <a href="https://tiktok.com/@jzzenitthsolutions" target="_blank" class="social-btn">
+      <span class="social-icon">🎵</span>
+      <span class="social-label">TikTok</span>
+    </a>
+    <a href="https://youtube.com/@jzzenitthsolutions" target="_blank" class="social-btn">
+      <span class="social-icon">▶️</span>
+      <span class="social-label">YouTube</span>
+    </a>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-block">
+    <div class="quote-text">
+      Cuido do seu MEI enquanto você cuida<br>
+      da sua vida — <em>com tudo que isso significa.</em>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-name">© 2026 · JZ Zenitth Solutions · Cajamar, SP</div>
+  </div>
+
+</div>
+</body>
+</html>
